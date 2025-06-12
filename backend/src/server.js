@@ -1,23 +1,19 @@
 import dotenv from 'dotenv';
 import express from 'express';
-const app = express();
-
+import { connectDB } from './lib/db.js';
+import AuthRoute from './routes/auth.route.js';
 dotenv.config();
 
+
+
+const app = express();
 const PORT = process.env.PORT;
+app.use(express.json());
 
-app.get('/api/auth/signup', (req,res)=>{
-    res.send("Signup Route");
-})
-app.get('/api/auth/signin', (req,res)=>{
-    res.send("SignIn Route");
-})
-
-app.get('/api/auth/logout', (req,res)=>{
-    res.send("Signup Route");
-});
+app.use("/api/auth",AuthRoute )
 
 
 app.listen(PORT, ()=>{
     console.log(`server running in ${PORT}`)
+    connectDB();
 })
